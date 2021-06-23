@@ -13,10 +13,8 @@ public class Donation {
     private double id;
     @Column(name = "quantity")
     private int quantity;
-    @Column(name = "categories")
     @ManyToMany
     private List<Category> categories;
-    @Column(name = "institution")
     @ManyToOne
     private Institution institution;
     @Column(name = "street")
@@ -39,7 +37,7 @@ public class Donation {
         this.id = id;
         this.quantity = quantity;
         this.categories = categories;
-        this.institution = institution;
+       this.institution = institution;
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
@@ -54,7 +52,7 @@ public class Donation {
                 "id=" + id +
                 ", quantity=" + quantity +
                 ", categories=" + categories +
-                ", institution=" + institution +
+               ", institution=" + institution +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", zipCode='" + zipCode + '\'' +
