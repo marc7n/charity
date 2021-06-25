@@ -1,3 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="pl">
   <head>
@@ -86,11 +91,22 @@
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
 
+            <c:forEach items="${categories}" var="category">
+              <div class="form-group form-group--checkbox">
+                <label>
+                  <input type="checkbox" name="categories" value="${category.id}" />
+                  <span class="checkbox"></span>
+                  <span class="description" >${category.name}</span>
+                </label>
+              </div>
+            </c:forEach>
+
+          <%--
             <div class="form-group form-group--checkbox">
               <label>
                 <input
                   type="checkbox"
-                  name="categories"
+                  patch="categories"
                   value="clothes-to-use"
                 />
                 <span class="checkbox"></span>
@@ -135,7 +151,7 @@
                 <span class="description">inne</span>
               </label>
             </div>
-
+--%>
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
             </div>
@@ -148,7 +164,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <input type="number" name="bags" step="1" min="1" />
+                <input type="number" path="quantity" step="1" min="1" />
               </label>
             </div>
 
