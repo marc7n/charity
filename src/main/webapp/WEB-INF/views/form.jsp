@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
-<html lang="pl">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@include file="header.jsp"%>
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,28 +12,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
-    <header class="header--form-page">
-      <nav class="container container--70">
-        <ul class="nav--actions">
-          <li class="logged-user">
-            Witaj Agata
-            <ul class="dropdown">
-              <li><a href="#">Profil</a></li>
-              <li><a href="#">Moje zbiórki</a></li>
-              <li><a href="#">Wyloguj</a></li>
-            </ul>
-          </li>
-        </ul>
 
-        <ul>
-          <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
-          <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
-          <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
-          <li><a href="index.html#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-          <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
-      </nav>
+    <header class="header--form-page">
+
 
       <div class="slogan container container--90">
         <div class="slogan--item">
@@ -86,7 +67,7 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form action="form-confirmation.html" method="post">
+<form:form action="" method="post" modelAttribute="donation">
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
@@ -94,64 +75,14 @@
             <c:forEach items="${categories}" var="category">
               <div class="form-group form-group--checkbox">
                 <label>
-                  <input type="checkbox" name="categories" value="${category.id}" />
+                  <form:checkbox path="categories" value="${category.id}"/>
                   <span class="checkbox"></span>
-                  <span class="description" >${category.name}</span>
+                  <span id="category" class="description" >${category.name}</span>
                 </label>
               </div>
             </c:forEach>
 
-          <%--
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  patch="categories"
-                  value="clothes-to-use"
-                />
-                <span class="checkbox"></span>
-                <span class="description"
-                  >ubrania, które nadają się do ponownego użycia</span
-                >
-              </label>
-            </div>
 
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  name="categories"
-                  value="clothes-useless"
-                />
-                <span class="checkbox"></span>
-                <span class="description">ubrania, do wyrzucenia</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="toys" />
-                <span class="checkbox"></span>
-                <span class="description">zabawki</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="books" />
-                <span class="checkbox"></span>
-                <span class="description">książki</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="other" />
-                <span class="checkbox"></span>
-                <span class="description">inne</span>
-              </label>
-            </div>
---%>
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
             </div>
@@ -164,7 +95,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <input type="number" path="quantity" step="1" min="1" />
+                <form:input id="quantity" type="number" name="quantity" step="1" min="1" path="quantity"/>
               </label>
             </div>
 
@@ -180,33 +111,19 @@
           <div data-step="3">
             <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="radio" name="organization" value="old" />
-                <span class="checkbox radio"></span>
-                <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
-                  </div>
-                </span>
-              </label>
-            </div>
+            <c:forEach items="${institution}" var="institution">
+              <div class="form-group form-group--checkbox">
+                <label>
+                  <form:radiobutton path="institution" value="${institution.id}"/>
+                  <span class="checkbox radio"></span>
+                  <span class="description">
+                                <div id="institution" class="title">${institution.name}</div>
+                                <div class="subtitle">${institution.description}</div>
+                            </span>
+                </label>
+              </div>
+            </c:forEach>
 
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="radio" name="organization" value="old" />
-                <span class="checkbox radio"></span>
-                <span class="description">
-                  <div class="title">Fundacja “Dla dzieci"</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                    życiowej.
-                  </div>
-                </span>
-              </label>
-            </div>
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
@@ -317,46 +234,8 @@
               <button type="submit" class="btn">Potwierdzam</button>
             </div>
           </div>
-        </form>
+        </form:form>
       </div>
     </section>
 
-    <footer>
-      <div class="contact">
-        <h2>Skontaktuj się z nami</h2>
-        <h3>Formularz kontaktowy</h3>
-        <form class="form--contact">
-          <div class="form-group form-group--50">
-            <input type="text" name="name" placeholder="Imię" />
-          </div>
-          <div class="form-group form-group--50">
-            <input type="text" name="surname" placeholder="Nazwisko" />
-          </div>
-
-          <div class="form-group">
-            <textarea
-              name="message"
-              placeholder="Wiadomość"
-              rows="1"
-            ></textarea>
-          </div>
-
-          <button class="btn" type="submit">Wyślij</button>
-        </form>
-      </div>
-      <div class="bottom-line">
-        <span class="bottom-line--copy">Copyright &copy; 2018</span>
-        <div class="bottom-line--icons">
-          <a href="#" class="btn btn--small"
-            ><img src="images/icon-facebook.svg"
-          /></a>
-          <a href="#" class="btn btn--small"
-            ><img src="images/icon-instagram.svg"
-          /></a>
-        </div>
-      </div>
-    </footer>
-
-    <script src="js/app.js"></script>
-  </body>
-</html>
+    <%@include file="footer.jsp"%>
