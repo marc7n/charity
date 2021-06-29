@@ -3,12 +3,12 @@ package pl.coderslab.charity.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private double id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -16,16 +16,16 @@ public class Category {
     public Category() {
     }
 
-    public Category(double id, String name) {
+    public Category(long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public double getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(double id) {
+    public void setId(long id) {
         this.id = id;
     }
 

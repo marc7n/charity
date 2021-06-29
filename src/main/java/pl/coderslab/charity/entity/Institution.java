@@ -5,28 +5,29 @@ import javax.persistence.*;
 @Entity
 @Table(name = "institution")
 public class Institution {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private double id;
-@Column(name = "name")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "name")
     private String name;
-@Column(name = "description")
+    @Column(name = "description")
     private String description;
 
     public Institution() {
+
     }
 
-    public Institution(double id, String name, String description) {
+    public Institution(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public double getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(double id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
