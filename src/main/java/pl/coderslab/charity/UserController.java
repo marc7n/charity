@@ -13,7 +13,6 @@ import pl.coderslab.charity.security.UserService;
 
 import javax.validation.Valid;
 
-
 @Controller
 public class UserController {
     private final UserService userService;
@@ -22,10 +21,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/new-user")
+    @GetMapping("/create")
     @ResponseBody
-    public String newUser() {
+    public String addUser() {
         User user = new User();
+
         user.setUsername("ADMIN");
         user.setEmail("admin@donation.com.pl");
         user.setPassword("admin");
@@ -33,7 +33,7 @@ public class UserController {
         return "admin";
     }
 
-    @GetMapping("/logged-user")
+    @GetMapping("/logged")
     @ResponseBody
     public String admin(@AuthenticationPrincipal CurrentUser customUser) {
         User entityUser = customUser.getUser();
@@ -55,22 +55,22 @@ public class UserController {
         if (!user.getPassword().equals(user.getPassword2())) {
             bindingResult
                     .rejectValue("password2", "error.user",
-                            "Password and password2 are different");
+                            "diffrents passwords");
             bindingResult
                     .rejectValue("password", "error.user",
-                            "Password and password2 are different");
+                            "diffrents passwords");
             user.setPassword("");
             user.setPassword2("");
         }
         if (userNameExists) {
             bindingResult
                     .rejectValue("username", "error.user",
-                            "There is a user registered with the user name provided");
+                            "There is a user registered this name");
         }
         if (userEmailExists) {
             bindingResult
                     .rejectValue("email", "error.user",
-                            "There is a user registered with the email provided");
+                            "There is a user registered this email");
         }
         if (bindingResult.hasErrors()) {
             return "register";
